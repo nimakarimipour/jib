@@ -215,6 +215,7 @@ public class LocalBaseImageSteps {
       Path configPath = destination.resolve(loadManifest.getConfig());
       ContainerConfigurationTemplate configurationTemplate =
           JsonTemplateMapper.readJsonFromFile(configPath, ContainerConfigurationTemplate.class);
+      // Don't compute the digest of the Java JSON instance but the originial file
       BlobDescriptor originalConfigDescriptor =
           Blobs.from(configPath).writeTo(ByteStreams.nullOutputStream());
 
