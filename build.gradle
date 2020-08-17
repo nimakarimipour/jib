@@ -1,4 +1,5 @@
 // define all versioned plugins here and apply in subprojects as necessary without version
+/* NullAway AutoFixer */
 buildscript {
   repositories {
     mavenLocal()
@@ -7,6 +8,7 @@ buildscript {
     classpath 'edu.ucr.cs.riple:NullAwayAutoFixer:1.0-SNAPSHOT'
   }
 }
+/* NullAway AutoFixer */
 
 
 plugins {
@@ -21,7 +23,9 @@ plugins {
   id 'org.jetbrains.gradle.plugin.idea-ext' version '0.8.1'
 }
 
+/* NullAway AutoFixer */
 apply plugin: 'edu.ucr.cs.riple.plugin'
+/* NullAway AutoFixer */
 
 // run tests in intellij using gradle test runner
 idea.project.settings {
@@ -43,7 +47,9 @@ subprojects {
   group 'com.google.cloud.tools'
 
   repositories {
+    /* NullAway AutoFixer */
     mavenLocal()
+    /* NullAway AutoFixer */
     mavenCentral()
   }
 
@@ -124,7 +130,11 @@ subprojects {
   /* ERROR PRONE */
   dependencies {
     // NullAway errorprone plugin
+
+    /* NullAway AutoFixer */
     annotationProcessor 'edu.ucr.cs.riple:nullaway:0.7.12-SNAPSHOT'
+    /* NullAway AutoFixer */
+
     errorprone 'com.google.errorprone:error_prone_core:2.3.4'
     // Using github.com/google/error-prone-javac is required when running on
     // JDK 8. Remove when migrating to JDK 11.
@@ -139,13 +149,24 @@ subprojects {
       options.errorprone {
         check('NullAway', CheckSeverity.ERROR)
         option('NullAway:ExcludedFieldAnnotations', 'org.apache.maven.plugins.annotations.Component')
+        /* NullAway AutoFixer */
         option('NullAway:AutoFix', 'true')
         option('NullAway:AnnotatedPackages', 'com.google.cloud.tools')
+        /* NullAway AutoFixer */
       }
+      /* NullAway AutoFixer */
       options.compilerArgs << "-Xmaxerrs" << "100000"
+      /* NullAway AutoFixer */
     }
   }
   /* ERROR PRONE */
+
+  /* NullAway AutoFixer*/
+  annotationEditor {
+    remove = ["javax.annotations.Nullable"]
+    subProjects = ["jib-core", "jib-gradle-plugin"]
+  }
+  /* NullAway AutoFixer*/
 
   /* GOOGLE JAVA FORMAT */
   googleJavaFormat {
