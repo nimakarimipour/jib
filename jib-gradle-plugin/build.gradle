@@ -10,7 +10,6 @@ plugins {
   id 'net.ltgt.apt' version '0.13'
   id 'net.ltgt.errorprone' version '0.0.13'
 
-
   // Prepare release
   id 'net.researchgate.release' version '2.6.0'
   // Gradle Plugin Portal publish
