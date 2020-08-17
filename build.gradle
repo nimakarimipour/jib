@@ -1,4 +1,14 @@
 // define all versioned plugins here and apply in subprojects as necessary without version
+buildscript {
+  repositories {
+    mavenLocal()
+  }
+  dependencies {
+    classpath 'edu.ucr.cs.riple:NullAwayAutoFixer:1.0-SNAPSHOT'
+  }
+}
+
+
 plugins {
   id 'com.github.sherter.google-java-format' version '0.9' apply false
   id 'net.ltgt.apt' version '0.21' apply false
@@ -10,6 +20,8 @@ plugins {
   // apply so we can correctly configure the test runner to be gradle at the project level
   id 'org.jetbrains.gradle.plugin.idea-ext' version '0.8.1'
 }
+
+apply plugin: 'edu.ucr.cs.riple.plugin'
 
 // run tests in intellij using gradle test runner
 idea.project.settings {
@@ -31,6 +43,7 @@ subprojects {
   group 'com.google.cloud.tools'
 
   repositories {
+    mavenLocal()
     mavenCentral()
   }
 
@@ -111,7 +124,7 @@ subprojects {
   /* ERROR PRONE */
   dependencies {
     // NullAway errorprone plugin
-    annotationProcessor 'com.uber.nullaway:nullaway:0.7.10'
+    annotationProcessor 'edu.ucr.cs.riple:nullaway:0.7.12-SNAPSHOT'
     errorprone 'com.google.errorprone:error_prone_core:2.3.4'
     // Using github.com/google/error-prone-javac is required when running on
     // JDK 8. Remove when migrating to JDK 11.
@@ -126,8 +139,10 @@ subprojects {
       options.errorprone {
         check('NullAway', CheckSeverity.ERROR)
         option('NullAway:ExcludedFieldAnnotations', 'org.apache.maven.plugins.annotations.Component')
+        option('NullAway:AutoFix', 'true')
         option('NullAway:AnnotatedPackages', 'com.google.cloud.tools')
       }
+      options.compilerArgs << "-Xmaxerrs" << "100000"
     }
   }
   /* ERROR PRONE */
