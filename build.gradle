@@ -164,7 +164,7 @@ subprojects {
   /* NullAway AutoFixer*/
   annotationEditor {
     remove = ["javax.annotations.Nullable"]
-    subProjects = ["jib-core", "jib-gradle-plugin"]
+    subProjects = ["jib-core", "jib-gradle-plugin", "jib-plugins-common"]
   }
   /* NullAway AutoFixer*/
 
