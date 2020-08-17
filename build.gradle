@@ -165,12 +165,12 @@ subprojects {
   autoFixMode {
     fixPath = "/tmp/NullAwayFix"
     maximumRound = 100
+    formatTask = "goJF"
   }
 
   annotationEditor {
     remove = ["javax.annotations.Nullable"]
     subProjects = ["jib-core", "jib-gradle-plugin", "jib-plugins-common"]
-    formatTask = "goJF"
   }
   /* NullAway AutoFixer*/
 
